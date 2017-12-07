@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import './App.css';
 import SignUp from './signUp';
 import LogIn from './logIn';
+import Notes from './notes';
 let crypto = require('crypto');
 
 class App extends Component {
@@ -31,9 +32,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      // <Notes />
+      <div className="wholePage">
          { this.state.isLoggedIn
-         ? <p> It works! </p>
+         ? <Notes />
          : <div className="App">
             <header>
               <h1 className="title">Pen it Down</h1>

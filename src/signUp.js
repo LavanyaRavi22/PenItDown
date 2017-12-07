@@ -64,7 +64,8 @@ class SignUp extends Component{
                   Sign Up
               </button>
               <p> Already a member ? &nbsp; 
-                  <span onClick={this.props.newUser}>
+                  <span onClick={this.props.newUser}
+                  		className="pointIt">
                       Log In
                   </span>
               </p>

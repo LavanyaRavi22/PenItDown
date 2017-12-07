@@ -54,7 +54,8 @@ class LogIn extends Component{
 	              Log In
 	            </button>
 	            <p> No Account ?&nbsp; 
-	                <span onClick={this.props.newUser}>
+	                <span onClick={this.props.newUser}
+	                	  className="pointIt">
 	                    Sign Up
 	                </span>
 	            </p>
