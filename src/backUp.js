@@ -109,3 +109,19 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+db
+      .collection('notes')
+      .where('uid','==',this.props.getUID())
+      .get()
+      .then((userNotes) => {
+        this.setState({documents : userNotes.docs});
+        console.log(this.state.documents);
+      });

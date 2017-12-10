@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import Cookies from 'universal-cookie';
+import EditProfile from './components/editProfile';
 
 class Icon extends Component {
 	constructor() {
 		super();
 		this.toggleDropDown = this.toggleDropDown.bind(this);
+		this.logOut = this.logOut.bind(this);
+		this.editProfile = this.editProfile.bind(this);
+		this.state = {editProfile : false};
 	}
 
 	toggleDropDown(e) {
@@ -13,16 +18,33 @@ class Icon extends Component {
 		dropDown.classList.toggle("hidden");
 	}
 
+	logOut(){
+		console.log("In here");
+		const cookie = new Cookies();
+    	cookie.remove('uid');
+    	this.props.cookieGet();
+	}
+
+	editProfile() {
+		this.setState({editProfile : !this.state.editProfile});
+	}
+
 	render() {
 		return (
 			<div className="text-center sideBarIcon">
-				<img src="http://via.placeholder.com/300" className="userImg" />
+				<img src="http://via.placeholder.com/300" className="userImg" alt="User Avatar"/>
 				<button className="fa fa-angle-down dropdownBtn"
 						onClick={this.toggleDropDown}> </button>
 				<ul className="dropDownIcon hidden">
 					<li className="listItem"
-					    onClick={this.showProfile}> Edit Profile </li>
-					<li className="listItem lastItem"> Log Out </li>
+					    onClick={this.editProfile}> Edit Profile </li>
+					    {this.state && this.state.editProfile && 
+					    	<EditProfile name={this.props.name}
+					    	getUID = {this.props.getUID}
+					    	logOut = {this.logOut} 
+					    	editProfile = {this.editProfile} />
+					    }
+					<li className="listItem lastItem" onClick={this.logOut} >Log Out </li>
 				</ul>
 			</div>
 		);

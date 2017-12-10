@@ -30,6 +30,8 @@
 /*--------------*/
 html,body {
   height:100%;
+  margin:0;
+  padding:0;
 }
 
 #root{
@@ -38,6 +40,7 @@ html,body {
 
 .wholePage{
   height:100%;
+  /*overflow-y: hidden;*/
 }
 
 .title {
@@ -113,6 +116,7 @@ input {
 .headerDiv{
   padding-bottom: 1%;
   border-bottom: 2px solid #0F84AB;
+  width:100%;
 }
 
 .headerStyle {
@@ -131,14 +135,23 @@ input {
       padding: 0;
       height:100%;
       background-color:#0F84AB;
+      position: fixed;
+      width:250px;
       /*border-right: 1px solid white;*/
 }
 
 .folderHeader {
-    width: 100%;
+    width: 80%;
     padding-left: 10%;
     font-size: 130%;
     color:white;
+}
+
+.mainContent {
+  width:auto;
+  margin-right:0;
+  margin-left:250px;
+  overflow:auto;
 }
 
 /*------Drop Down Value---------*/
@@ -148,7 +161,7 @@ input {
   background-color:white;
   color:#0F84AB;
   padding: 0;
-  width:70%;
+  width:90%;
   position:absolute;
   top:5%;
   right:0;
@@ -164,9 +177,81 @@ input {
 }
 
 .lastItem {
+  border-top:1px solid #0F84AB;
   border-bottom:0;
 }
 
 .hidden {
   display:none;
+}
+
+.nameOfUser {
+  color:white;
+  font-size:180%;
+  margin-left:10%;
+}
+
+.btnFull {
+  width:80%;
+}
+
+.paddingForEdit {
+  padding:3%;
+  margin:2%;
+}
+
+select {
+  width:80%;
+  margin-left:25px;
+}
+
+.badPadding {
+  padding:0;
+}
+/*-------Notes----------*/
+.noteSection{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newNoteTitle {
+  color:gray;
+  text-align:left;
+  padding-left:25%;
+  padding-top:1%;
+  font-size:120%;
+}
+
+.closeNote {
+  position:absolute;
+}
+
+.textAreaSection {
+  font-size:120%;
+}
+
+.noteTitleSection {
+  width:30%;
+}
+
+/*-------Note Icon--------*/
+.userDocument {
+  border:1px solid gray;
+  overflow: scroll;
+  float:left;
+  width:200px;
+  height: 300px;
+  margin: 2%;
+  padding: 1%;
+}
+
+
+/*-----Landing Page---------*/
+.landingFirst {
+  height:100%;
+}
+
+.landingSecond {
+  background-color: #0F84AB;
+  height:100%;
 }

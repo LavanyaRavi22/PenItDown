@@ -1,41 +1,47 @@
 import React, { Component } from 'react';
-import {db} from './firebase';
-import firebase from 'firebase';
 import './App.css';
 import SignUp from './signUp';
 import LogIn from './logIn';
 import Notes from './notes';
-let crypto = require('crypto');
+import Cookies from 'universal-cookie';
+// import LandingPage from './landingPage';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { loginUser : true,
-                   isLoggedIn : false };
+    this.state = { loginUser : true,      // To toggle between login and signup page
+                   cookies : null         // has the uid of logged in user
+                 };
     this.newUser = this.newUser.bind(this);
-    this.hashPassword = this.hashPassword.bind(this);
-    this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.cookieSet = this.cookieSet.bind(this);
+    this.cookieGet = this.cookieGet.bind(this);
   }
-
+  // To toggle between login and signup page
   newUser() {
     this.setState({loginUser : !this.state.loginUser});
   }
-
-  hashPassword(input,salt) {
-    let hash = crypto.pbkdf2Sync(input,salt,10000,256,'sha512');
-    return [salt,hash.toString('hex')].join("$");
+  // Setting the cookies - user uId
+  cookieSet(uid,email) {
+    const cookie = new Cookies();
+    cookie.set('uid',uid,{path : '/'});
+    cookie.set('email',email,{path : '/'});
+    this.setState({cookies : cookie.get('uid')});
+  }
+  // Getting the already set cookie - for new tab
+  cookieGet() {
+    const cookie = new Cookies();
+    this.setState({cookies : cookie.get('uid')});
   }
 
-  isLoggedIn() {
-    this.setState({isLoggedIn : !this.state.isLoggedIn});
+  componentDidMount() {
+    this.cookieGet();
   }
 
   render() {
     return (
-      // <Notes />
       <div className="wholePage">
-         { this.state.isLoggedIn
-         ? <Notes />
+         { this.state && this.state.cookies
+         ? <Notes cookieGet={this.cookieGet} />
          : <div className="App">
             <header>
               <h1 className="title">Pen it Down</h1>
@@ -44,14 +50,12 @@ class App extends Component {
             { this.state.loginUser 
             ? <LogIn
                 newUser = {this.newUser} 
-                hashPassword = {this.hashPassword} 
-                isLoggedIn = {this.isLoggedIn}/>
+                cookieSet = {this.cookieSet}/>
             : <SignUp
                 newUser = {this.newUser} 
-                hashPassword = {this.hashPassword} 
-                isLoggedIn = {this.isLoggedIn}/>
+                cookieSet = {this.cookieSet}/>
             }
-            </form>
+            </form> 
           </div>
         }
       </div>

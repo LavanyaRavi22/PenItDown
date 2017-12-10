@@ -8,7 +8,7 @@ class FolderNavigation extends Component {
 		return (
 			//a loop over folders(check CommentList.js)
 			<div className="folderStructure">
-				<p className="folderHeader"> <span className="fa fa-folder"></span> Folders </p>
+				<p className="folderHeader"> <span className="fa fa-folder"></span> Recent Pens </p>
 				<Folder />
 			</div>
 		);
