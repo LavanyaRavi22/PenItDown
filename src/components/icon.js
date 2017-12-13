@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../styles/App.css';
 import Cookies from 'universal-cookie';
-import EditProfile from './components/editProfile';
+import EditProfile from './editProfile';
 
 class Icon extends Component {
 	constructor() {
@@ -21,7 +21,7 @@ class Icon extends Component {
 	logOut(){
 		console.log("In here");
 		const cookie = new Cookies();
-    	cookie.remove('uid');
+    	cookie.remove('uid','email');
     	this.props.cookieGet();
 	}
 

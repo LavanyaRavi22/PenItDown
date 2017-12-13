@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import './App.css';
+import '../styles/App.css';
 
 class LogIn extends Component{
 	constructor(){
@@ -13,7 +13,10 @@ class LogIn extends Component{
  		if(this.email.value && this.password.value) {
  			await firebase.auth()
  						  .signInWithEmailAndPassword(this.email.value,this.password.value)
- 						  .catch(error => {alert(error);throw error;});
+ 						  .catch(error => {
+ 						  	alert(error);
+ 						  	throw error;
+ 						  });
  			firebase.auth().onAuthStateChanged(firebaseUser => {
  				this.props.cookieSet(firebaseUser.uid,firebaseUser.email);
  				console.log(firebaseUser);

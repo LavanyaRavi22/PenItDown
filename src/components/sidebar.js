@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-import {db} from './firebase';
+import '../styles/App.css';
+import {db} from '../firebase';
 import Icon from './icon';
 import FolderNavigation from './folderNavigation';
 
@@ -34,7 +34,7 @@ class SideBar extends Component {
 					  name = {this.state.fullName}
 					  getUID = {this.props.getUID}/>
 				<p className="nameOfUser"> Hi, {this.state.fullName}!</p>
-				<FolderNavigation />
+				<FolderNavigation getUID = {this.props.getUID}/>
 			</div>
 		);
 	}

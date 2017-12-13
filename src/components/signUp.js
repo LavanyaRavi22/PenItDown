@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {db} from './firebase';
+import {db} from '../firebase';
 import firebase from 'firebase';
-// import {auth} from './firebase'
-import './App.css';
+import '../styles/App.css';
 
 class SignUp extends Component{
   constructor(){

@@ -40,6 +40,7 @@ html,body {
 
 .wholePage{
   height:100%;
+  margin-bottom: 30px;
   /*overflow-y: hidden;*/
 }
 
@@ -66,6 +67,17 @@ input {
   width:100%;
   /*padding:2%;*/
   font-size:130%;
+}
+
+input[type="checkbox"] {
+  width:auto;
+  display:inline;
+  margin:1%;
+}
+
+.shareBtn {
+  display:block;
+  margin:1%;
 }
 
 .submitIt {
@@ -104,6 +116,7 @@ input {
 .addDocBtn{
   float: right;
   color:#0F84AB;
+  z-index:2;
 }
 
 .navBtn{
@@ -137,6 +150,7 @@ input {
       background-color:#0F84AB;
       position: fixed;
       width:250px;
+      z-index: 1;
       /*border-right: 1px solid white;*/
 }
 
@@ -145,6 +159,14 @@ input {
     padding-left: 10%;
     font-size: 130%;
     color:white;
+}
+
+.fileTitle{
+    width: 80%;
+    margin-left: 25%;
+    font-size: 110%;
+    color:white;
+    margin-bottom:5%;
 }
 
 .mainContent {
@@ -189,6 +211,7 @@ input {
   color:white;
   font-size:180%;
   margin-left:10%;
+  font-family: 'Raleway', sans-serif;
 }
 
 .btnFull {
@@ -209,6 +232,20 @@ select {
   padding:0;
 }
 /*-------Notes----------*/
+.myPens{
+    top: 20px;
+    font-size: 200%;
+    left: 30px;
+    font-family: 'Raleway', sans-serif;
+    color:#0F84AB;
+    text-shadow: 2px 2px #CCCCCC;
+}
+
+.noteList {
+  margin-top:3%;
+  margin-left:7%;
+}
+
 .noteSection{
   margin: 0 auto;
   text-align: center;
@@ -228,21 +265,25 @@ select {
 
 .textAreaSection {
   font-size:120%;
+  width:100%;
 }
 
 .noteTitleSection {
-  width:30%;
+  width:100%;
+  margin: 10px 0;
 }
 
 /*-------Note Icon--------*/
 .userDocument {
-  border:1px solid gray;
-  overflow: scroll;
+  border:1px solid #555555;
+  overflow:hidden;
   float:left;
-  width:200px;
-  height: 300px;
-  margin: 2%;
-  padding: 1%;
+  width:170px;
+  height:220px;
+  margin:2%;
+  padding:1%;
+  box-shadow:10px 10px #CCCCCC;
+  font-size:11px;
 }
 
 
@@ -254,4 +295,22 @@ select {
 .landingSecond {
   background-color: #0F84AB;
   height:100%;
+}
+
+/*-------Footer-------------*/
+.footer{
+  margin:0;
+  padding:0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #e1dfdf;
+  text-align: center;
+  margin-top: 50%;
+  left:0;
+}
+
+
+.footer p{
+  margin-left : 250px;
 }

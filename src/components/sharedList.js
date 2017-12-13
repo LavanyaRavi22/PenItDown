@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import {db} from '../firebase';
 import firebase from 'firebase';
-import '../App.css';
+import '../styles/App.css';
 import Cookie from 'universal-cookie';
+import ViewNote from './viewNote';
 
 class SharedList extends Component{
 	constructor(){
 		super();
 		this.state = {
 			documents : [],
-			sharedNotes : []
+			sharedNotes : [],
+			openDoc : false,
+			title : null,
+			noteBody: null,				//to open the shared doc
+			showModal : false,
+			edit: null
 		}
 		this.openDocument = this.openDocument.bind(this);
+		this.closeNote = this.closeNote.bind(this);
+	}
+
+  	closeNote(){
+		this.setState({openDoc : false,title: null,noteBody: null,showModal:false});
 	}
 
 	componentDidMount(){
@@ -37,18 +48,45 @@ class SharedList extends Component{
 			});
 	}
 
-	openDocument(){
-		console.log(this.state);
+	async openDocument(e){
+		e.preventDefault();
+		await this.setState({
+			openDoc:true,
+			docID:e.target.id,
+			showModal: true
+			});
+
+		await this.state.sharedNotes.map(doc => {
+			if(doc.id === this.state.docID){
+				console.log("in here");
+				 this.setState({
+					title : doc.noteTitle,
+					noteBody : doc.notes
+				});
+			}
+			return null;
+		});
+
+		this.state.documents.map(async (doc) => {
+			if(this.state.docID === doc.data().noteID)
+			{
+				await this.setState({edit : doc.data().write});
+				//console.log(doc.data());
+			}
+		})
 	}
 
 	render(){
 		return(
-			<div>
+			<div className="noteList">
 				{this.state && this.state.sharedNotes && 
 					this.state.sharedNotes.map((document) => {
 						return(
-						<div className='userDocument' onClick={this.openDocument}>
-							<h4 onClick={this.openDocument}>
+						<div className='userDocument' 
+						     id={document.id} 
+							 onClick={this.openDocument}>
+							<h4 onClick={this.openDocument}
+								id={document.id}>
 								{document.noteTitle}
 							</h4>
 							{this.state.documents && 
@@ -56,19 +94,35 @@ class SharedList extends Component{
 									return(
 										<div>
 											{(doc.data().noteID === document.id) &&
-												<h6 style={{'text-decoration':'underline'}}>Shared by: {doc.data().sharedBy}</h6>
+												<h6 style={{textDecoration:'underline'}}
+													id={document.id}>
+													Shared by: {doc.data().sharedBy}
+												</h6>
 											}
 										</div>
 									);
 								})
 							}
 							
-							<p onClick={this.openDocument}>
+							<p onClick={this.openDocument}
+							   id={document.id}>
 								{document.notes}
 							</p>
 						</div>
 					)})
 				}
+
+				{this.state && this.state.openDoc && this.state.title 
+					&& this.state.noteBody &&
+					<ViewNote showModal = {this.state.showModal}
+							  noteID = {this.state.docID}
+							  closeNote = {this.closeNote}
+							  title = {this.state.title}
+							  noteBody = {this.state.noteBody} 
+							  shared = {true}
+							  edit = {this.state.edit}/>
+				}
+				
 			</div>
 		);
 	}
