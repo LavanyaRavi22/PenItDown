@@ -314,3 +314,9 @@ select {
 .footer p{
   margin-left : 250px;
 }
+
+/*----Profile Picture-----*/
+.uploadImage {
+  width:100%;
+  font-size: 0px;
+}

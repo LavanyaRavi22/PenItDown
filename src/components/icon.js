@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import Cookies from 'universal-cookie';
 import EditProfile from './editProfile';
+import {storage} from '../firebase';
+import ProfilePicture from './profilePicture';
 
 class Icon extends Component {
 	constructor() {
@@ -9,7 +11,20 @@ class Icon extends Component {
 		this.toggleDropDown = this.toggleDropDown.bind(this);
 		this.logOut = this.logOut.bind(this);
 		this.editProfile = this.editProfile.bind(this);
-		this.state = {editProfile : false};
+		this.state = {
+			editProfile : false,
+			photoURL:null,
+			profile:null,
+			showModal:null
+		};
+		this.openProfilePicture = this.openProfilePicture.bind(this);
+		this.closeNote=this.closeNote.bind(this);
+		this.uploadsTheFile=this.uploadsTheFile.bind(this);
+	}
+
+	openProfilePicture() {
+		this.setState({profile : true,
+						showModal:true});
 	}
 
 	toggleDropDown(e) {
@@ -29,10 +44,44 @@ class Icon extends Component {
 		this.setState({editProfile : !this.state.editProfile});
 	}
 
+	async uploadsTheFile(file) {
+		console.log(file);
+		console.log(this.props.getUID());
+		await storage.ref('/profile').child(this.props.getUID()).put(file,{contentType:file.type});
+		this.showProfilePicture();
+	}
+
+	closeNote(){
+		this.setState({showModal: false,
+						profile:false});
+	}
+
+	showProfilePicture() {
+		storage.ref('/profile')
+			   .child(this.props.getUID())
+			   .getDownloadURL()
+			   .then(photoURL =>
+			   		this.setState({photoURL})
+			   	)
+	}
+
+	componentDidMount() {
+		this.showProfilePicture();
+	}
+
 	render() {
 		return (
 			<div className="text-center sideBarIcon">
-				<img src="http://via.placeholder.com/300" className="userImg" alt="User Avatar"/>
+				<img src={this.state.photoURL ? this.state.photoURL : "http://via.placeholder.com/300" }
+					 className="userImg" 
+					 alt="User Avatar"
+					 onClick={this.openProfilePicture}/>
+				{this.state && this.state.profile &&
+					<ProfilePicture showModal={this.state.showModal}
+									closeNote={this.closeNote}
+									uploadsTheFile={this.uploadsTheFile}
+									/>
+				}
 				<button className="fa fa-angle-down dropdownBtn"
 						onClick={this.toggleDropDown}> </button>
 				<ul className="dropDownIcon hidden">

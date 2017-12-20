@@ -84,6 +84,7 @@ class SharedList extends Component{
 						return(
 						<div className='userDocument' 
 						     id={document.id} 
+						     key={document.id}
 							 onClick={this.openDocument}>
 							<h4 onClick={this.openDocument}
 								id={document.id}>

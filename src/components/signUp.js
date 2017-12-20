@@ -39,7 +39,12 @@ class SignUp extends Component{
             this.props.cookieSet(firebaseUser.uid,firebaseUser.email);
           }
         });
+      } 
+      else {
+        alert("Password Mismatch");
       }
+    } else {
+      alert("Invalid Entries");
     }
   }
 
